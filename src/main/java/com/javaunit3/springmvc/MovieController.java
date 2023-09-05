@@ -44,7 +44,7 @@ public class MovieController {
 
         String voterNamesList = String.join(",", voterNames);
 
-        model.addAttribute("BestMovie", bestMovieService.getBestMovie().getTitle());
+        model.addAttribute("BestMovie", movieWithMostVotes.getTitle());
         model.addAttribute("bestMovieVoters", voterNamesList);
 
         session.getTransaction().commit();
@@ -56,7 +56,7 @@ public class MovieController {
     public String voteForBestMovieFormPage(Model model) {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
-        List<MovieEntity> movieEntityList = session.createQuery("from MovieEntity").list(); session.getTransaction().commit();
+        List<MovieEntity> movieEntityList = session.createQuery("from MovieEntity").list();
         session.getTransaction().commit();
         model.addAttribute("movies", movieEntityList);
         return "voteForTheBestMovie";
@@ -78,7 +78,6 @@ public class MovieController {
         session.update(movieEntity);
 
         session.getTransaction().commit();
-
 
         return "voteForTheBestMovie";
     }
